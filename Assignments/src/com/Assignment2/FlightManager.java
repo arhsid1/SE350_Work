@@ -20,9 +20,10 @@ public class FlightManager {
     private FlightManager(){
     }
 
-    public void createFlight(String type, Airline airline, Airport origin, Airport destination, Date departureTime) throws BadParameter{
+    public String createFlight(String type, Airline airline, Airport origin, Airport destination, Date departureTime) throws BadParameter{
         Flight fly = FlightFactory.createFlight(type, airline, origin, destination, departureTime);
         flights.add(fly);
+        return fly.getFlightNumber();
     }
     public Flight getFlightByNumber(String flightNum) throws BadParameter{
         Flight result = null;
