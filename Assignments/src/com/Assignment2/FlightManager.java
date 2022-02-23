@@ -1,14 +1,16 @@
 package com.Assignment2;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+import static com.Assignment2.AirlineFactory.getAirline;
+import static com.Assignment2.AirportFactory.getAirport;
 
 public class FlightManager {
     private static FlightManager flightmanager;
     private static List<Flight> flights;
 
-
+    private FlightManager(){
+    }
 
     public static FlightManager getInstance(){
         if(flightmanager == null) {
@@ -17,11 +19,20 @@ public class FlightManager {
         }
         return flightmanager;
     }
-    private FlightManager(){
-    }
 
-    public String createFlight(String type, Airline airline, Airport origin, Airport destination, Date departureTime) throws BadParameter{
-        Flight fly = FlightFactory.createFlight(type, airline, origin, destination, departureTime);
+    public String createFlight(String type, String airline, String origin, String destination, Date departureTime, int passengerCapacity) throws BadParameter{
+        Airline a = getAirline(airline);
+        Airport ori = getAirport(origin);
+        Airport des = getAirport(destination);
+        Flight fly = FlightFactory.createFlight(type, a, ori, des, departureTime, passengerCapacity);
+        flights.add(fly);
+        return fly.getFlightNumber();
+    }
+    public String createFlight(String type, String airline, String origin, String destination, Date departureTime) throws BadParameter{
+        Airline a = getAirline(airline);
+        Airport ori = getAirport(origin);
+        Airport des = getAirport(destination);
+        Flight fly = FlightFactory.createFlight(type, a, ori, des, departureTime, 0);
         flights.add(fly);
         return fly.getFlightNumber();
     }

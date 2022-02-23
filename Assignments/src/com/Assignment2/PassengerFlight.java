@@ -4,23 +4,34 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
-public class CommercialFlight implements Flight {
+public class PassengerFlight implements Flight{
+
+    private int passengerCapacity;
     private Airline airline;
     private Airport origin;
     private Airport destination;
     private String flightNumber;
     private Date departureTime;
 
-    public CommercialFlight(Airline airline, Airport origin, Airport destination, Date departureTime) throws BadParameter{
+    public PassengerFlight(Airline airline, Airport origin, Airport destination, Date departureTime, int passengerCapacity) throws BadParameter{
         setAirline(airline);
         setOrigin(origin);
         setDestination(destination);
         setFlightNumber();
         setDepartureTime(departureTime);
-
-
+        setPassengerCapacity(passengerCapacity);
     }
 
+    public int getPassengerCapacity() {
+        return passengerCapacity;
+    }
+
+    private void setPassengerCapacity(int passengerCapacity) throws BadParameter {
+        if(passengerCapacity <= 0) {
+            throw new BadParameter("Capacity cannot be 0 or negative");
+        }
+        this.passengerCapacity = passengerCapacity;
+    }
     public String getAirline() {
         return airline.toString();
     }
@@ -90,12 +101,14 @@ public class CommercialFlight implements Flight {
     @Override
     public String toString() {
         StringBuilder strb = new StringBuilder();
-        strb.append("Commercial Flight Details:\n");
+        strb.append("Passenger Flight Details:\n");
         strb.append(getAirline() + "\n");
         strb.append("Origin " + getOrigin() + "\n");
         strb.append("Destination " + getDestination() + "\n");
         strb.append("Flight Number: " + getFlightNumber() + "\n");
+        strb.append("Passenger Capacity: " + getPassengerCapacity() + "\n");
         strb.append("Departure Time: " + getDepartureTime() + "\n");
         return strb.toString();
     }
 }
+
