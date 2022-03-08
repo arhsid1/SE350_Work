@@ -5,7 +5,7 @@ import java.util.*;
 import static com.Assignment2.AirlineFactory.getAirline;
 import static com.Assignment2.AirportFactory.getAirport;
 
-public class FlightManager {
+public class FlightManager implements ExpensiveFlightManager{
     private static FlightManager flightmanager;
     private static List<Flight> flights;
 
